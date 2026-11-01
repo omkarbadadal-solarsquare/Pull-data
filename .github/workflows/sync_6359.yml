@@ -26,5 +26,5 @@ jobs:
           GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
           SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
           SHEET_NAME: SIQ_Sept
-          QUESTION_ID: "6359"
+          QUESTION_ID: "6358"
         run: python sync_6358.py
