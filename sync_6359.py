@@ -11,7 +11,7 @@ from gspread.exceptions import APIError
 
 # ---------- CONFIG (from GitHub secrets / env) ----------
 METABASE_URL = os.environ.get("METABASE_URL", "https://metabase-lighthouse.solarsquare.in").rstrip("/")
-QUESTION_ID = os.environ.get("QUESTION_ID", "6359")
+QUESTION_ID = os.environ.get("QUESTION_ID", "6358")
 METABASE_API_KEY = os.environ["METABASE_API_KEY"]
 
 SPREADSHEET_ID = os.environ["SPREADSHEET_ID"]
