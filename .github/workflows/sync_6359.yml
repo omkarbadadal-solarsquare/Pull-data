@@ -27,4 +27,4 @@ jobs:
           SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
           SHEET_NAME: SIQ_Sept
           QUESTION_ID: "6359"
-        run: python sync_6359.py
+        run: python sync_6358.py
