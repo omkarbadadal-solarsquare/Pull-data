@@ -1,3 +1,3 @@
-requests>=2.31
-gspread>=5.12
-google-auth>=2.29
+requests>=2.32,<3
+gspread>=6.2,<7
+google-auth>=2.0,<3
