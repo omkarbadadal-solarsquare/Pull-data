@@ -1,0 +1,62 @@
+
+name: Pull Metabase Question 6541 to Google Sheets
+
+on:
+  workflow_dispatch:
+    inputs:
+      reset_existing_data:
+        description: "Clear Sheet1 and restart extraction"
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: metabase-question-6541-export
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    env:
+      METABASE_URL: "https://metabase-lighthouse.solarsquare.in"
+      QUESTION_ID: "6541"
+
+      SHEET_NAME: "Sheet1"
+      STATE_SHEET_NAME: "_loader_state_6541"
+
+      COHORT_START: "2026-09-01"
+      COHORT_END: "2026-10-01"
+
+      CHUNK_DAYS: "1"
+      REQUEST_RETRIES: "2"
+
+      RESET_IMPORT: ${{ inputs.reset_existing_data }}
+
+      METABASE_API_KEY: ${{ secrets.METABASE_API_KEY }}
+      GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+      GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Run Metabase extraction
+        run: |
+          python metabase_to_sheets.py
